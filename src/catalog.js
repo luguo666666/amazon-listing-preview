@@ -1,5 +1,10 @@
 const BUCKET_ORDER = { listing: 0, kv: 1, aplus: 2, 'app-kv': 3, 'app-aplus': 4, other: 5 };
 
+function listingSequence(name) {
+  const match = name.match(/(?:-|_)(\d+)(?:\.[^.]+)$/);
+  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+}
+
 export function classifyImage({ name, width, height }) {
   const aplus = name.match(/A\+\s*(\d+)(?:[-_](\d+))?/i);
   const suffix = name.match(/(?:-|_)(\d+)(?:\.[^.]+)?$/);
@@ -23,6 +28,10 @@ export function sortImages(images) {
   return [...images].sort((a, b) => {
     const left = a.meta ?? classifyImage(a);
     const right = b.meta ?? classifyImage(b);
+    if (left.bucket === 'listing' && right.bucket === 'listing') {
+      return listingSequence(a.name) - listingSequence(b.name)
+        || a.name.localeCompare(b.name, undefined, { numeric: true });
+    }
     return BUCKET_ORDER[left.bucket] - BUCKET_ORDER[right.bucket]
       || left.group - right.group
       || left.index - right.index

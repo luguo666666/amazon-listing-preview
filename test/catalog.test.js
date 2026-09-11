@@ -20,6 +20,17 @@ test('sorts listing suffixes and A+ group/carousel suffixes naturally', () => {
   ]);
 });
 
+test('puts numbered listing images before unnumbered listing images', () => {
+  const images = [
+    { name: 'white-background.jpg', width: 1500, height: 1500 },
+    { name: 'product-2.jpg', width: 1500, height: 1500 },
+    { name: 'product-1.jpg', width: 1500, height: 1500 },
+  ];
+  assert.deepEqual(sortImages(images).map((image) => image.name), [
+    'product-1.jpg', 'product-2.jpg', 'white-background.jpg',
+  ]);
+});
+
 test('flags unsupported dimensions while preserving filenames', () => {
   const meta = classifyImage({ name: 'unknown.jpg', width: 800, height: 800 });
   assert.equal(meta.bucket, 'other');
