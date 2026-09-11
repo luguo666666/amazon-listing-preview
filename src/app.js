@@ -45,6 +45,7 @@ function imageNode(item, className = '') {
 }
 
 function setFrame(frame, item, className = '') {
+  frame.hidden = !item;
   frame.replaceChildren();
   if (item) frame.append(imageNode(item, className));
   else frame.innerHTML = '<div class="empty-frame">暂无图片</div>';
