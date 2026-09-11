@@ -252,6 +252,7 @@ async function addFiles(fileList) {
   const oldUrls = images.map((item) => item.url);
   oldUrls.forEach((url) => URL.revokeObjectURL(url));
   images = loaded;
+  selectedId = null;
   render();
 }
 

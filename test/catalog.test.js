@@ -31,6 +31,17 @@ test('puts numbered listing images before unnumbered listing images', () => {
   ]);
 });
 
+test('supports standalone numeric listing filenames', () => {
+  const images = [
+    { name: 'details.jpg', width: 1500, height: 1500 },
+    { name: '2.jpg', width: 1500, height: 1500 },
+    { name: '1.jpg', width: 1500, height: 1500 },
+  ];
+  assert.deepEqual(sortImages(images).map((image) => image.name), [
+    '1.jpg', '2.jpg', 'details.jpg',
+  ]);
+});
+
 test('flags unsupported dimensions while preserving filenames', () => {
   const meta = classifyImage({ name: 'unknown.jpg', width: 800, height: 800 });
   assert.equal(meta.bucket, 'other');

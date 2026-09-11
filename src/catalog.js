@@ -1,7 +1,7 @@
 const BUCKET_ORDER = { listing: 0, kv: 1, aplus: 2, 'app-kv': 3, 'app-aplus': 4, other: 5 };
 
 function listingSequence(name) {
-  const match = name.match(/(?:-|_)(\d+)(?:\.[^.]+)$/);
+  const match = name.match(/(?:^|-|_)(\d+)(?:\.[^.]+)$/);
   return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
 }
 
