@@ -190,7 +190,7 @@ async function downloadPreview() {
     canvas.width = totalWidth;
     canvas.height = canvasHeight;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#6F6F6F';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     const allItems = [...listing, ...(kv ? [kv] : []), ...aplusGroups.flatMap((group) => group.slides), ...(appKv ? [appKv] : []), ...appGroups.flatMap((group) => group.slides)];
     const loadedImages = new Map(await Promise.all(allItems.map(async (item) => [item.id, await loadExportImage(item)])));
