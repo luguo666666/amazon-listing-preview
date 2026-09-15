@@ -160,6 +160,32 @@ function loadExportImage(item) {
   });
 }
 
+function getSkuFromListing(listing) {
+  const first = listing.find((item) => /(?:-|_)1(?:[-_].*)?\.[^.]+$/i.test(item.name));
+  if (!first) return '';
+  return first.name.replace(/(?:-|_)1(?:[-_].*)?\.[^.]+$/i, '');
+}
+
+function drawSkuInBlankArea(ctx, sku, x, top, width, bottom) {
+  if (!sku || bottom <= top) return;
+  const padding = 20;
+  const maxWidth = Math.max(0, width - padding * 2);
+  const maxHeight = Math.max(0, bottom - top - padding * 2);
+  if (!maxWidth || !maxHeight) return;
+
+  let fontSize = Math.min(120, maxHeight);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#ffffff';
+  while (fontSize > 12) {
+    ctx.font = `700 ${fontSize}px Arial, sans-serif`;
+    if (ctx.measureText(sku).width <= maxWidth) break;
+    fontSize -= 2;
+  }
+  if (ctx.measureText(sku).width > maxWidth) return;
+  ctx.fillText(sku, x + width / 2, top + (bottom - top) / 2);
+}
+
 async function downloadPreview() {
   elements.download.disabled = true;
   elements.download.classList.add('is-loading');
@@ -170,6 +196,7 @@ async function downloadPreview() {
     const aplusGroups = groupAplusImages(sorted);
     const appKv = sorted.find((item) => item.meta.bucket === 'app-kv');
     const appGroups = groupAppImages(sorted);
+    const sku = getSkuFromListing(listing);
     if (!listing.length && !kv && !aplusGroups.length && !appKv && !appGroups.length) return;
 
     const showcaseGap = 50;
@@ -221,6 +248,9 @@ async function downloadPreview() {
       });
       aplusY += rowHeight;
     });
+
+    const skuBottom = appTop > 0 ? Math.min(showcaseHeight, appTop) : showcaseHeight;
+    drawSkuInBlankArea(ctx, sku, aplusX, aplusHeight, aplusWidth, skuBottom);
 
     let appY = appTop;
     const appX = aplusX;
