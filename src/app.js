@@ -100,7 +100,12 @@ function renderCarousel(group, variant = 'desktop') {
       });
       dots.append(dot);
     });
-    block.append(window, dots);
+    if (isMobile) {
+      window.append(dots);
+      block.append(window);
+    } else {
+      block.append(window, dots);
+    }
   } else {
     block.append(window);
   }

@@ -98,7 +98,7 @@ h1 em { color: var(--orange); font-style: normal; }
 .mobile-kv-image + .mobile-carousel-group { margin-top: 0; }
 .mobile-carousel-window { position: relative; aspect-ratio: 1200 / 900; overflow: hidden; background: #fafaf8; }
 .mobile-carousel-image { display: block; width: 100%; height: 100%; object-fit: contain; }
-.mobile-carousel-dots { height: 50px; display: flex; align-items: center; justify-content: center; gap: 6px; background: #fff; }
+.mobile-carousel-dots { position: absolute; z-index: 2; left: 50%; bottom: 10px; translate: -50% 0; display: flex; gap: 6px; padding: 5px 8px; border-radius: 20px; background: rgba(0,0,0,.42); }
 
 @media (max-width: 980px) {
   .workspace { grid-template-columns: 1fr; }
