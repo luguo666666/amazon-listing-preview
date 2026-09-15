@@ -215,11 +215,11 @@ async function downloadPreview() {
     const appHeight = (appKv?.height ?? 0)
       + appGroups.reduce((total, group) => total + Math.max(...group.slides.map((item) => item.height)), 0);
     const skuWidth = sku && (appKv || appGroups.length) ? 2400 : 0;
-    const skuHeight = skuWidth ? 220 : 0;
     const pcHeight = Math.max(showcaseHeight, aplusHeight);
     const pcAplusEnd = aplusHeight;
     const appTop = appKv || appGroups.length ? pcAplusEnd + 50 : 0;
-    const canvasHeight = Math.max(pcHeight, appTop + appHeight + skuHeight);
+    const appEnd = appTop + appHeight;
+    const canvasHeight = Math.max(pcHeight, appEnd, appEnd + (skuWidth ? 220 : 0));
     const totalWidth = Math.max(aplusX + aplusWidth, appWidth, aplusX + skuWidth);
     const canvas = document.createElement('canvas');
     canvas.width = totalWidth;
@@ -268,8 +268,8 @@ async function downloadPreview() {
     });
 
     if (sku && (appKv || appGroups.length)) {
-      const skuTop = appTop + appHeight;
-      drawSkuInBlankArea(ctx, sku, appX, skuTop, skuWidth, skuTop + skuHeight);
+      const skuTop = appEnd;
+      drawSkuInBlankArea(ctx, sku, appX, skuTop, skuWidth, canvasHeight);
     }
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.94));
     const url = URL.createObjectURL(blob);
