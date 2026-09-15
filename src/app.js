@@ -169,7 +169,7 @@ async function downloadPreview() {
 
     const showcaseGap = 50;
     const aplusGap = 20;
-    const appGap = 0;
+    const appGap = 20;
     const canvasWidth = 1500;
     const aplusWidth = Math.max(1464, ...aplusGroups.map((group) => (
       group.slides.reduce((total, item) => total + item.width, 0) + aplusGap * Math.max(0, group.slides.length - 1)
