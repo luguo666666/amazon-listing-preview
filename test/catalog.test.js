@@ -31,6 +31,17 @@ test('puts numbered listing images before unnumbered listing images', () => {
   ]);
 });
 
+test('ignores trailing AI suffix when sorting listing sequence', () => {
+  const images = [
+    { name: 'KF01.3233V2-3.jpg', width: 1500, height: 1500 },
+    { name: 'KF01.3233V2-2-AI.jpg', width: 1500, height: 1500 },
+    { name: 'KF01.3233V2-1.jpg', width: 1500, height: 1500 },
+  ];
+  assert.deepEqual(sortImages(images).map((image) => image.name), [
+    'KF01.3233V2-1.jpg', 'KF01.3233V2-2-AI.jpg', 'KF01.3233V2-3.jpg',
+  ]);
+});
+
 test('flags unsupported dimensions while preserving filenames', () => {
   const meta = classifyImage({ name: 'unknown.jpg', width: 800, height: 800 });
   assert.equal(meta.bucket, 'other');
