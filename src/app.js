@@ -214,7 +214,7 @@ async function downloadPreview() {
     )));
     const appHeight = (appKv?.height ?? 0)
       + appGroups.reduce((total, group) => total + Math.max(...group.slides.map((item) => item.height)), 0);
-    const skuWidth = sku && (appKv || appGroups.length) ? 2400 : 0;
+    const skuWidth = sku && (appKv || appGroups.length) ? 7200 : 0;
     const pcHeight = Math.max(showcaseHeight, aplusHeight);
     const pcAplusEnd = aplusHeight;
     const appTop = appKv || appGroups.length ? pcAplusEnd + 50 : 0;
