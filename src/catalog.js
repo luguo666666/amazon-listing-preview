@@ -9,7 +9,7 @@ export function classifyImage({ name, width, height }) {
   const aplus = name.match(/A\+\s*(\d+)(?:[-_](\d+))?/i);
   const suffix = name.match(/(?:-|_)(\d+)(?:\.[^.]+)?$/);
   const dimensions = `${width}x${height}`;
-  const bucket = dimensions === '1500x1500' ? 'listing'
+  const bucket = ['1500x1500', '1200x1500'].includes(dimensions) ? 'listing'
     : dimensions === '1464x1200' ? 'kv'
     : dimensions === '1464x600' ? 'aplus'
     : dimensions === '1200x1800' ? 'app-kv'

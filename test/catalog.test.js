@@ -4,6 +4,7 @@ import { classifyImage, groupAplusImages, groupAppImages, sortImages } from '../
 
 test('classifies the three supported dimensions', () => {
   assert.equal(classifyImage({ name: 'hero-1.jpg', width: 1500, height: 1500 }).bucket, 'listing');
+  assert.equal(classifyImage({ name: 'hero-2.jpg', width: 1200, height: 1500 }).bucket, 'listing');
   assert.equal(classifyImage({ name: 'A+1-1.jpg', width: 1464, height: 1200 }).bucket, 'kv');
   assert.equal(classifyImage({ name: 'A+3-2.jpg', width: 1464, height: 600 }).bucket, 'aplus');
 });
